@@ -1,0 +1,81 @@
+.body
+{
+   font-family: 'Roboto'
+}
+.menu
+{
+  font-family: 'Exo', Georgia, serif;
+  font-size:1em;
+  font-weight:700;
+  padding-top:0.5vw;
+  padding-bottom:0.5vw;
+}
+.menu span
+{
+  margin-right:1vw;
+  padding:1px 5px 1px 5px;
+}
+.menu span:hover
+{
+  color:red;
+  cursor:pointer;
+}
+
+.header,.footer
+{
+  font-family: 'Roboto Slab';
+  background:rgba(47,64,80,1.0);
+  height:140px;
+  color:white;
+  text-align:center;
+
+}
+.header h1
+{
+ font-size:3.2em;
+}
+.header h4
+{
+  font-style: italic;
+}
+.footer
+{
+  height:1.5em;
+  background:white;
+  color:black;
+  font-weight:700;
+}
+.footer hr
+{
+  border-top: 1px solid rgba(47,64,80,0.5);
+  margin:0 0 1vh 0;
+}
+.body1
+{
+  margin-top:2vh;
+  margin-bottom:1vh;
+}
+
+.vertical-center {
+  min-height: 35%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 35vh; /* These two lines are counted as one :-)       */
+  display: flex;
+  align-items: center;
+}
+.explanation
+{
+padding-left:5vw;
+}
+.explanation h5
+{
+  font-weight:700;
+}
+.menuSelected
+{
+  color:#800;
+}
+.navbar {
+    margin-bottom: 0;
+}
+
+a:hover { text-decoration: none;}
