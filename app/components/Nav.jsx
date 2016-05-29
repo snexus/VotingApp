@@ -7,7 +7,7 @@ module.exports = React.createClass({
     // console.log("location = ",location)
     var homeClass = location.pathname === "/" ? "active" : "";
     var pollsClass = location.pathname.match(/^\/polls/) ? "active" : "";
-    var messagesClass = location.pathname.match(/^\/messages/) ? "active" : "";
+    var dashboardClass = location.pathname.match(/^\/dashboard/) ? "active" : "";
     var loginClass = location.pathname.match(/^\/login/) ? "active" : "";
     var signupClass = location.pathname.match(/^\/signup/) ? "active" : "";
 
@@ -28,7 +28,7 @@ module.exports = React.createClass({
                             <ul className="nav navbar-nav">
                                 <li className={homeClass}><a href="#">Home</a></li>
                                 <li className={pollsClass}><a href="#">Polls</a></li>
-                                <li className={messagesClass}><a href="#">Messages</a></li>
+                                <li className={dashboardClass}><Link to="dashboard">Dashboard</Link></li>
                             </ul>
                             <ul className="nav navbar-nav navbar-right">
                                 <li  className={loginClass}><Link to="login">Login</Link></li>

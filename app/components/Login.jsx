@@ -1,39 +1,45 @@
 var React = require("react");
 var router = require("react-router")
 var withRouter = router.withRouter;
-var auth = require("./auth.js")
+var auth = require("../auth/clientAuth.js")
 
 
 module.exports = withRouter(
   React.createClass({
 
-    getInitialState() {
+    getInitialState: function() {
       return {
         error: false
       }
     },
 
-    handleSubmit(event) {
+    handleSubmit: function(event) {
       event.preventDefault()
 
-      const email = this.refs.email.value
-      const pass = this.refs.pass.value
-
-      auth.login(email, pass, (loggedIn) => {
+      var email = this.refs.email.value
+      var pass = this.refs.pass.value
+    console.log("auth = ",auth)
+      
+      auth.login(email, pass, function(loggedIn){
+           // console.log("this after auth = ",this)
         if (!loggedIn)
+        
           return this.setState({ error: true })
-
-        const { location } = this.props
-
+         this.setState({user:email,token:auth.getToken()});
+        //console.log("Seems to login succesfully");
+        var location = this.props
+        console.log("location = ",location)
         if (location.state && location.state.nextPathname) {
           this.props.router.replace(location.state.nextPathname)
         } else {
-          this.props.router.replace('/')
+          this.props.router.replace('dashboard')
         }
-      })
+      }.bind(this))
     },
+    
 
-    render() {
+
+    render: function() {
       return (
         <form onSubmit={this.handleSubmit}>
           <label><input ref="email" placeholder="email" defaultValue="joe@example.com" /></label>

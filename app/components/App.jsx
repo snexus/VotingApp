@@ -4,6 +4,10 @@ var Header = require("../components/Header.jsx");
 var Footer = require("../components/Footer.jsx");
 // var Main = require("../components/Main.jsx");
 module.exports = React.createClass({
+  
+  
+  
+  
     render:function(){
         var location = this.props;
         return(
