@@ -13,6 +13,20 @@ module.exports = {
     });
   },
 
+  signupOnServer: function(login, pass, cb)
+  {
+    var xhr = new XMLHttpRequest();
+    var user = 'login=' + encodeURIComponent(login) + '&password=' + encodeURIComponent(pass);
+    xhr.open('post', '/auth/signup');
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded'); 
+    xhr.responseType = 'json';
+    xhr.onload = function() {
+      var error = true;
+     if (this.status == 200)    error = false;
+     cb(error,this.response.message );
+   };
+  xhr.send(user);
+  },
 
   getToken: function() {
     return localStorage.token

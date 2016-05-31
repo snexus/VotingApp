@@ -2,8 +2,9 @@
 
 var path = process.cwd();
 
+var serverAuth = require(path + '/app/auth/serverAuth.js');
 
-//var searchLayer = require(path + '/app/auth/clientAuth.js');
+
 module.exports = function (app) {
 	app.route('/').get(function (req, res) {
 	    console.log(path)
@@ -13,9 +14,37 @@ module.exports = function (app) {
 
 	app.route("/auth/login").post(function (req, res) {
 
-			console.log("query = ", req.body);
+			serverAuth.processLogin(req.body.login.trim(), req.body.password.trim(), function(err,token,message)
+			{
+				if (err) 
+				{
+					console.log(err);
+					res.status(400).json({message:"Bad login information"})
+				}
+				else
+				{
+					res.status(200).json({token:token,message:"Login successful"});
+				}
+			});
 				
-				res.status(200).json({token:1234,message:"success"});
+				
+		
+	});
+	
+	app.route("/auth/signup").post(function (req, res) {
+			
+			console.log("signup query = ", req.body);
+			serverAuth.saveUser(req.body.login.trim(), req.body.password.trim(), function(err)
+			{
+			if (err	) 
+			{
+				console.log(err);
+				res.status(400).json({error:false, message:"Signup couldn't complete, perhaps user already exists."});	
+			}	
+			else {
+				res.status(200).json({error:false, message:"Signup successfull"});	
+				}
+			});
 		
 	});
 	
