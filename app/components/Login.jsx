@@ -1,18 +1,38 @@
 var React = require("react");
 var router = require("react-router")
+var Link =router.Link
 var withRouter = router.withRouter;
 var auth = require("../auth/clientAuth.js")
-
+var AuthStore =require("../stores/AuthStore");
+var AuthActions = require("../actions/AuthActions");
 
 module.exports = withRouter(
   React.createClass({
 
     getInitialState: function() {
       return {
-        error: false
+        error: false,
       }
     },
+    
+    componentWillMount: function()
+    {
+      AuthStore.addChangeListener(this.onChange)
+    },
+    
+     componentWillUnmount: function() {
+      AuthStore.removeChangeListener(this.onChange)  
+  },
 
+    
+    onChange: function()
+    {
+      console.log("Login - on change received")
+      this.setState({error:AuthStore.getLoginError()});
+      console.log("error = ", AuthStore.getLoginError())
+    },
+    
+    
     handleSubmit: function(event) {
       event.preventDefault()
 
@@ -23,10 +43,14 @@ module.exports = withRouter(
       auth.login(email, pass, function(loggedIn){
            // console.log("this after auth = ",this)
         if (!loggedIn)
+        {
+          return AuthActions.loginFailed("Invalid username or password data");
+        }
         
-          return this.setState({ error: true })
-         this.setState({user:email,token:auth.getToken()});
+        //  return this.setState({ error: true })
+         //this.setState({user:email,token:auth.getToken()});
         //console.log("Seems to login succesfully");
+        AuthActions.loginSuccesfull(email)
         var location = this.props
         console.log("location = ",location)
         if (location.state && location.state.nextPathname) {
@@ -60,10 +84,10 @@ module.exports = withRouter(
                                 <p className="error-message">Bad login information</p>
                               )}
                     <form className="login-form" onSubmit={this.handleSubmit}>
-                      <input ref="email" type="text" placeholder="username" />
-                      <input ref="pass" type="password" placeholder="password" />
+                      <input ref="email" type="text"  placeholder="username" />
+                      <input ref="pass" type="password"  placeholder="password" />
                       <button type="submit">login</button>
-                      <p className="message">Not registered? <a href="#">Create an account</a></p>
+                      <p className="message">Not registered? <Link to="signup">Create an account</Link></p>
                     </form>
                   </div>
                 </div>

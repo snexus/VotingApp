@@ -1,4 +1,14 @@
 'use strict';
+var mongoose = require('mongoose');
+var dbURI = process.env.MONGO_URI;
+console.log("dbURI = ", dbURI)
+
+require('./app/serverComponents/UserModel.js');
+require('./app/serverComponents/PollModel.js');
+
+var Users = mongoose.model("Users");
+var Polls = mongoose.model("Polls");
+mongoose.connect(dbURI);
 
 var express = require('express');
 var routes = require('./app/serverRoutes/index.js');

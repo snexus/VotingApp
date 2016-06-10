@@ -1,5 +1,6 @@
 var React = require("react");
 var router = require("react-router")
+var Link =router.Link
 var withRouter = router.withRouter;
 var auth = require("../auth/clientAuth.js")
 
@@ -68,7 +69,7 @@ module.exports = withRouter(
                       <input ref="pass" type="password" placeholder="password" />
                        <input ref="pass2" type="password" placeholder="confirm password" />
                       <button type="submit">Signup</button>
-                      <p className="message">Already registered? <a href="#">Sign In</a></p>
+                      <p className="message">Already registered? <Link to="login">Sign In</Link></p>
                     </form>
                   </div>
                 </div>

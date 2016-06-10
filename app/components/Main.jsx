@@ -27,7 +27,7 @@ module.exports = React.createClass({
                  </ul>
                <hr></hr>
                <Link to="signup">
-                    <button className="btn btn-block btn-warning responsive-width">Sign Up</button>
+                    <button className="button1">Sign Up</button>
                </Link>
              </div>
            </div>
