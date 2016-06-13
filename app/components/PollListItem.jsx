@@ -4,6 +4,8 @@ var React = require('react');
 var ReactPropTypes = React.PropTypes;
 var router = require("react-router")
 var Link =router.Link
+var AuthStore = require('../stores/AuthStore');
+var UserPollActions = require('../actions/UserPollActions');
 
 
 
@@ -26,7 +28,9 @@ var PollListItem = React.createClass({
     
     var poll = this.props.poll;
 
-
+    var currentUser = AuthStore.getCurrentUser();
+    var displayDelete = false;
+    if (poll.author == currentUser) displayDelete=true;
    
     // List items should get the class 'editing' when editing
     // and 'completed' when marked as completed.
@@ -39,7 +43,9 @@ var PollListItem = React.createClass({
        <Link to={link}>
       <div className="polllistitem" key={poll.id}>
 
-                    <h6>by {poll.author} on {poll.creationDate.slice(0,10)}</h6>
+                    <h6>Created by {poll.author} on {poll.creationDate.slice(0,19)}
+                    </h6>
+                    
                     <h4>{poll.pollName} </h4>
               </div>
           </Link>
@@ -53,6 +59,12 @@ var PollListItem = React.createClass({
 
   _onClick: function() {
     this.setState({isEditing: true})
+  },
+  
+  _deleteItemClicked: function() {
+    console.log("polllistitem delete pressed")
+    UserPollActions.destroyPollListItem(this.props.poll.id);
+    
   },
 
   /**

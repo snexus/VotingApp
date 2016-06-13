@@ -47,5 +47,15 @@ module.exports = {
         });
     },
     
+        deletePoll: function(username, id, callback) {
+            PollModel.findOne({id: id}, function(err, poll) {
+                if (err) {return callback(err) }
+            if ((poll.author != username) && (username!="admin")) callback("invalid user");
+            poll.remove( function(err){
+               return callback(err) ;
+            });
+        });
+    },
+    
   
 }

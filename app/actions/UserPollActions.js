@@ -38,6 +38,13 @@ var PollActions = {
   /**
    * @param  {string} id
    */
+  destroyPollListItem: function(id) {
+    AppDispatcher.dispatch({
+      actionType: "POLLLISTITEM_DESTROY",
+      id: id
+    });
+  },
+   
   destroy: function(id) {
     AppDispatcher.dispatch({
       actionType: "POLLITEM_DESTROY",

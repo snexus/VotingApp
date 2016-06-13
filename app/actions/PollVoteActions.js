@@ -15,6 +15,13 @@ var PollVoteActions = {
     });
   },
   
+    deletepoll: function(id) {
+    AppDispatcher.dispatch({
+      actionType: "VOTEITEM_DELETE",
+      id: id
+    });
+  },
+  
    changeName: function(text) {
     AppDispatcher.dispatch({
       actionType: "POLL_NAMECHANGE",

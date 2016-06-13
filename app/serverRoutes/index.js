@@ -120,6 +120,40 @@ module.exports = function (app) {
 		
 	});
 	
+		app.route("/deletepoll").post(function (req, res) {
+			var id = req.body.id.trim();
+			var userToken = req.body.token.trim();
+			console.log("Delete poll on server (id, token): ",id, userToken);
+			serverAuth.getUser(userToken,function(err,user){
+					if (err) 
+				{
+					console.log(err);
+					res.status(400).json({message:"Bad user"});
+				}
+				else
+				{
+					sc.deletePoll(user.login, id, function(err)
+					{
+					if (err) 
+							{
+								console.log(err);
+								res.status(400).json({message:"Delete unsuccessful"});
+							}
+					else
+					{
+							
+						res.status(200).json({message:"Delete successful"});
+					}
+				
+						});
+						
+					}
+			});
+	});
+	
+	
+	
+	
 			app.route("/vote").post(function (req, res) {
 			var id = req.body.id.trim();
 			var label = req.body.label.trim();

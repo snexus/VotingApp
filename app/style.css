@@ -340,3 +340,18 @@ background: #f2f2f2;
   padding-right:0;
 
 }
+
+.delete
+{
+  color: #B00;
+  text-align:right;
+  cursor:alias;
+  padding-left:10px;
+
+}
+
+.signupok
+{
+  text-align:center;
+  
+}

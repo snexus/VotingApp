@@ -64,6 +64,7 @@ module.exports = withRouter(
 
 
     render: function() {
+      console.log("inside log, location = ",this.state)
       return (
         // <form onSubmit={this.handleSubmit}>
         //   <label><input ref="email" placeholder="email" defaultValue="joe@example.com" /></label>
@@ -82,6 +83,9 @@ module.exports = withRouter(
                   <div className="form">
                             {this.state.error && (
                                 <p className="error-message">Bad login information</p>
+                              )}
+                              {this.props.message && (
+                                <p className="error-message">{this.props.message}</p>
                               )}
                     <form className="login-form" onSubmit={this.handleSubmit}>
                       <input ref="email" type="text"  placeholder="username" />

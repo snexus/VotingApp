@@ -7,6 +7,8 @@ var AuthStore = require('../stores/AuthStore');
 var PollListItem = require('./PollListItem.jsx');
 var ReactHighcharts= require("react-highcharts")
 var Select = require('react-select');
+var Router = require("react-router")
+var History = Router.History
 
 var options = [
     { value: 'one', label: 'One' },
@@ -140,7 +142,14 @@ var PollVotePage = React.createClass({
   {
       disabled="disabled"
   }
-// console.log("PollVOtePage, authStore = ",AuthStore.getCurrentUser,disabled)
+  
+
+    var disabledDelete = "";
+    if (this.state.chartOptions)
+        {
+            if ((this.state.pollData.author != AuthStore.getCurrentUser()) && (AuthStore.getCurrentUser()!="admin")) disabledDelete="disabled";
+        }
+    // console.log("PollVOtePage, authStore = ",AuthStore.getCurrentUser,disabled)
 
     return (
       <div>
@@ -171,10 +180,10 @@ var PollVotePage = React.createClass({
                   <button className="btn  btn-block btn-primary responsive-width" onClick={this._onVoteClick}>Vote</button>
               </div>
               <div className= "col-sm-4">
-                 <button className="btn btn-block btn-info responsive-width">Back</button>
+                 <button className="btn btn-block btn-info responsive-width" onClick={this._onBack}>Back</button>
               </div>
                    <div className= "col-sm-4">
-                 <button className="btn btn-block btn-danger responsive-width" disabled={disabled}>Delete Poll</button>
+                 <button className="btn btn-block btn-danger responsive-width" disabled={disabledDelete} onClick={this._onDeleteClick}>Delete Poll</button>
               </div>
 
                 </div>
@@ -188,6 +197,11 @@ var PollVotePage = React.createClass({
       
     );
   },
+  _onBack: function(){
+
+    this.props.history.goBack()
+  },
+  
   _onChange: function() {
       var pollData = PollVotePageStore.getPoll()
        var polls = pollData.polls[0]
@@ -195,7 +209,7 @@ var PollVotePage = React.createClass({
        for (var key in polls) {
           pollListOptions.push({label:key, value:key});
       }
-    this.setState({chartOptions:getChartOptions(pollData), pollListOptions:pollListOptions, listValue:pollListOptions[0].label});
+    this.setState({chartOptions:getChartOptions(pollData), pollListOptions:pollListOptions, listValue:pollListOptions[0].label,pollData: pollData});
   },
   
   _onListChange: function(val) {
@@ -203,7 +217,14 @@ var PollVotePage = React.createClass({
 },
   _onVoteClick: function(l) {
     PollVoteActions.vote(this.state.listValue)
-}
+},
+
+  _onDeleteClick: function() {
+    console.log("onDeleteClick, id=",this.state.pollData.id)
+    PollVoteActions.deletepoll(this.state.pollData.id);
+    this.props.history.goBack()
+    
+  },
 });
 
 module.exports = PollVotePage;

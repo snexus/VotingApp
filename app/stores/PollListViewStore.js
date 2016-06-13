@@ -40,6 +40,30 @@ xhr.send();
 }
 
 
+function deletePoll(id, callback)
+{
+  var xhr = new XMLHttpRequest();
+  var token = auth.getToken();
+    var user = 'id=' + encodeURIComponent(id) +"&token="+encodeURIComponent(token);
+    xhr.open('post', '/deletepoll');
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded'); 
+    xhr.responseType = 'json';
+    xhr.onload = function() {
+      
+     if (this.status == 200) {
+        return callback(null);
+      } else {
+        
+        return callback("error");
+      }
+      
+   };
+  xhr.send(user);
+  
+}
+
+
+
 /**
  * Delete a poll item.
  * @param  {string} id
@@ -67,6 +91,16 @@ var PollListViewStore = assign({}, EventEmitter.prototype, {
       console.log("inside getAllPolls, _polls = ",_polls);
        this.emit(CHANGE_EVENT);
     }.bind(this));
+  },
+  
+  deleteItem(id)
+  {
+    deletePoll(id, function(err){
+      if (err) console.log("Error deleting poll with id = ",id);
+      this.getAllFromServer();
+      
+    }.bind(this))
+    
   },
   
   getAll: function() {
@@ -103,6 +137,13 @@ AppDispatcher.register(function(action) {
 
         PollListViewStore.emitChange();
       }
+      break;
+      
+      case "VOTEITEM_DELETE":
+      var id = action.id.trim();
+
+      PollListViewStore.deleteItem(id);
+     
       break;
       
       case "POLL_NAMECHANGE":

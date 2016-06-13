@@ -40,8 +40,23 @@ module.exports = withRouter(
     
       if (!this.state.error && this.state.message!="")
       {
+                    // to={{
+            //     pathname: `/pictures/${picture.id}`,
+            //     state: { modal: true, returnTo: this.props.location.pathname }
+            //   }}
         return (
-          <p>{this.state.message}</p> )
+    <div class="row">
+
+        <div className="col-sm-2"></div>
+        <div className="col-sm-8 signupok">
+          <h3>Signup successfull, you can <Link to="/login">login</Link> now</h3>
+        </div>
+        <div className="col-sm-2"></div>
+    </div>
+          
+
+          
+          )
       }
       else {
       return (
