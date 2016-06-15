@@ -6,7 +6,7 @@ module.exports = React.createClass({
             <div className = "container-fluid footer">
                   <div className="col-sm-12">
                     <hr></hr>
-                    <h6>freeCodeCamp Voting App Basejump | @snexus</h6>
+                    <h6>freeCodeCamp Voting App Basejump | <a href="https://github.com/snexus" target="_blank">@snexus</a></h6>
                     </div>
                 </div>
         )
