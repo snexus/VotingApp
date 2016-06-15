@@ -57,5 +57,23 @@ module.exports = {
         });
     },
     
+        updatePollOption: function(id, text,callback) {
+            PollModel.findOne({id: id}, function(err, poll) {
+                if (err) {return callback(err) }
+               // console.log("inside vote, poll, n = ",poll, Number(poll.polls[0][label])+1)
+            var updatePoll = poll.polls[0]
+            updatePoll[text] = 1;
+            //updatePoll[label] = Number(poll.polls[0][label])+1;
+            console.log("inside vote, uppoll1 = ",updatePoll)
+            poll.update({$set:{polls:updatePoll}}, function(error, updpoll){
+                               console.log("inside updatepolloption, uppoll2 = ",updpoll)
+               return callback(err) 
+                
+            })
+
+       
+        });
+    },
+    
   
 }

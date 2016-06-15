@@ -178,6 +178,31 @@ module.exports = function (app) {
 		
 	);
 	
+		app.route("/updatepolloption").post(function (req, res) {
+			var id = req.body.id.trim();
+			var text = req.body.text.trim();
+			console.log("Update poll option on server: ",id, text);
+
+					sc.updatePollOption(id, text,function(err)
+					{
+					if (err) 
+							{
+								console.log(err);
+								res.status(400).json({message:"Update poll option unsuccessful"})
+							}
+					else
+					{
+							
+						res.status(200).json({message:"Update poll option successful"});
+					}
+				
+						})
+					}
+		
+		
+	);
+	
+	
 	
 	
 	app.route("/auth/signup").post(function (req, res) {

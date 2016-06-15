@@ -24,10 +24,10 @@ module.exports = React.createClass({
                           <i className="glyphicon glyphicon-star"></i>
                           <p>My polls</p>
                         </Link>
-                        <a href="#" className="btn btn-warning col-sm-3">
+                        <Link to="polls/all" className="btn btn-warning col-sm-3">
                           <i className="glyphicon glyphicon-th-list"></i>
                           <p>All polls</p>
-                        </a>
+                        </Link>
                         <a href="#" className="btn btn-default col-sm-3">
                           <i className="glyphicon glyphicon-home"></i>
                           <p>Home</p>

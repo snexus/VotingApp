@@ -62,6 +62,27 @@ var xhr = new XMLHttpRequest();
   
 }
 
+function updateVoteOption(id, text, callback)
+{
+  
+var xhr = new XMLHttpRequest();
+    var updatePollOption = 'text=' + encodeURIComponent(text)+'&id='+encodeURIComponent(id);
+    xhr.open('post', '/updatepolloption');
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded'); 
+    xhr.responseType = 'json';
+    xhr.onload = function() {
+      
+     if (this.status == 200) {
+        return callback(null)
+      } else {
+        
+        return callback("Update vote option failed")
+      }
+      
+   };
+  xhr.send(updatePollOption);
+  
+}
 
 
 /**
@@ -101,6 +122,15 @@ var PollVotePageStore = assign({}, EventEmitter.prototype, {
     
   },
   
+  addvoteoption: function(id, text)
+  {
+    console.log("addvoteoption clicked, id, text = ", id, text);
+    updateVoteOption(_poll.id, text, function(err){
+    this.getPollFromServer(_poll.id)
+      
+    }.bind(this))
+  },
+  
   getPoll: function() {
       return _poll;
   },
@@ -127,11 +157,18 @@ var PollVotePageStore = assign({}, EventEmitter.prototype, {
 // Register callback to handle all updates
 AppDispatcher.register(function(action) {
   var text;
+  
 
   switch(action.actionType) {
     case "VOTEITEM_VOTE":
       text = action.label.trim();
       PollVotePageStore.vote(text);
+      break;
+    
+    case "VOTEITEM_ADDVOTEOPTION":
+      var id = action.id.trim();
+      text = action.text.trim();
+      PollVotePageStore.addvoteoption(id, text);
       break;
       
       case "POLL_NAMECHANGE":

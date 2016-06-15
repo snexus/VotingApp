@@ -15,6 +15,14 @@ var PollVoteActions = {
     });
   },
   
+    addvoteoption: function(id,text) {
+    AppDispatcher.dispatch({
+      actionType: "VOTEITEM_ADDVOTEOPTION",
+      id: id,
+      text:text
+    });
+  },
+  
     deletepoll: function(id) {
     AppDispatcher.dispatch({
       actionType: "VOTEITEM_DELETE",

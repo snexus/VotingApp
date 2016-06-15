@@ -225,6 +225,12 @@ var PollVotePage = React.createClass({
     this.props.history.goBack()
     
   },
+  
+    _onSaveClick: function() {
+    console.log("onSaveClick, id=",this.state.pollData.id)
+    PollVoteActions.addvoteoption(this.state.pollData.id, this.refs.newItem.value);
+    
+  },
 });
 
 module.exports = PollVotePage;
