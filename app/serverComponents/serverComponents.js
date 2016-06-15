@@ -62,7 +62,7 @@ module.exports = {
                 if (err) {return callback(err) }
                // console.log("inside vote, poll, n = ",poll, Number(poll.polls[0][label])+1)
             var updatePoll = poll.polls[0]
-            updatePoll[text] = 1;
+            updatePoll[text] = 0;
             //updatePoll[label] = Number(poll.polls[0][label])+1;
             console.log("inside vote, uppoll1 = ",updatePoll)
             poll.update({$set:{polls:updatePoll}}, function(error, updpoll){
