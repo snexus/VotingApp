@@ -92,6 +92,12 @@ var PollStore = assign({}, EventEmitter.prototype, {
   getAll: function() {
     return _polls;
   },
+  
+  clearAll: function()
+  {
+    _polls={}
+    _pollName=""
+  },
 
   emitChange: function() {
     this.emit(CHANGE_EVENT);
@@ -131,6 +137,12 @@ AppDispatcher.register(function(action) {
         nameChange(text);
         PollStore.emitChange();
       }
+      break;
+      
+      case "POLL_CLEARALL":
+
+        PollStore.clearAll();
+
       break;
 
 

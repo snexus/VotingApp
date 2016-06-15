@@ -15,6 +15,12 @@ var PollActions = {
     });
   },
   
+  clearAll: function() {
+    AppDispatcher.dispatch({
+      actionType: "POLL_CLEARALL",
+    });
+  },
+  
    changeName: function(text) {
     AppDispatcher.dispatch({
       actionType: "POLL_NAMECHANGE",

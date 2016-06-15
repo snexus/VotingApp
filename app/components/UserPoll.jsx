@@ -19,6 +19,7 @@ function getPollState() {
 var UserPolls = React.createClass({
 
   getInitialState: function() {
+    PollActions.clearAll();
     return getPollState();
   },
 
